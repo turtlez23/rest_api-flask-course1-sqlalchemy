@@ -3,10 +3,14 @@ from flask_restful import Api
 from flask_jwt import JWT
 
 from security import authenticate, identity
-from user import UserRegister
-from item import Item, ItemList
+from resources.user import UserRegister
+from resources.item import Item, ItemList
+
+from db import db
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = '123eefdfds2@'
 
 api = Api(app)
@@ -18,4 +22,5 @@ api.add_resource(Item, '/items/<string:name>')
 api.add_resource(UserRegister, '/register')
 
 if __name__ == '__main__':
-  app.run(debug=True)
+  db.init_app(app)
+  app.run(port=5000, debug=True)
