@@ -2,6 +2,7 @@
 Description=uWSGI rest_api_flask_course1-sqlalchemy
 
 [Service]
+Environment=DATABASE_URL=postgres://db_user:12345@localhost:5432/db_user
 ExecStart=/var/www/html/rest_api_flask_course1-sqlalchemy/venv/bin/uwsgi --master --emperor /var/www/html/rest_api_flask_course1-sqlalchemy/uwsgi.ini --die-on-term --uid ubuntu --gid ubuntu --logto /var/www/html/rest_api_flask_course1-sqlalchemy/log/emperor.log
 Restart=always
 KillSignal=SIGQUIT
